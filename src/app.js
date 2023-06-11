@@ -11,7 +11,7 @@ class App {
 
     constructor(){
         this.app = express();
-        this.port = 3000;
+        this.port = 8080;
 
         // ejecucion de middlewares.
         this.middlewares();
@@ -25,7 +25,7 @@ class App {
         //lectura del body
         this.app.use(express.json());
 
-        //parseo del body
+        //parseo del body JSON ----> pasa a objeto literal de javascript
         this.app.use(express.urlencoded({extended: true}));
         
         //directorio publico
@@ -38,13 +38,15 @@ class App {
 
 
     listen(){
-        this.server.listen(this.port, ()=>{
+        this.app.listen(this.port, ()=>{
             console.log(`Servidor corriendo en el puerto ${this.port}`);
         })
     }
 }
 
-module.exports = App
+module.exports = {
+    App
+}
 
 // const app= express() //Me devuelve la aplicacion de express que se guarda en app.
 // const PORT =3000;
