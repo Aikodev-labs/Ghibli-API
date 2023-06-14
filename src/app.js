@@ -1,5 +1,6 @@
 const express = require('express');  //Me traigo la libreria de express.
 const path=require('path');
+const cors=require('cors');
 
 class App {
 
@@ -13,22 +14,21 @@ class App {
         this.app = express();
         this.port = 8080;
 
-        // ejecucion de middlewares.
+        
         this.middlewares();
 
-        // ejecucion de rutas
+        
         this.routes();
 
     }
 
     middlewares(){
-        //lectura del body
+        this.app.use(cors());
+        
         this.app.use(express.json());
 
-        //parseo del body JSON ----> pasa a objeto literal de javascript
         this.app.use(express.urlencoded({extended: true}));
-        
-        //directorio publico
+         
         this.app.use(express.static('public'));
     }
 
@@ -47,11 +47,3 @@ class App {
 module.exports = {
     App
 }
-
-// const app= express() //Me devuelve la aplicacion de express que se guarda en app.
-// const PORT =3000;
-
-
-// app.listen ( PORT, () => {
-//     console.log(`Servidor funcionando en puerto ${ PORT }`);  //Indico el puerto.
-// }) 
