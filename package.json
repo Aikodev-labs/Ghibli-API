@@ -1,7 +1,7 @@
 {
   "name": "ghibli",
   "version": "1.0.0",
-  "description": "Servidor aplicando MVC",
+  "description": "Servidor de Ghibli",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
