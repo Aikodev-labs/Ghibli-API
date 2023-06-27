@@ -19,8 +19,8 @@ const getAllMovies = async (req, res = response) => {
     try {
         const movies = await Movie.find();
         return res.status(200).json({
-            movies: movies,
-            status: "success"
+            ok:true,
+            movies: movies
         })
     } catch (error) {
         return res.status(500).json({
@@ -31,12 +31,11 @@ const getAllMovies = async (req, res = response) => {
 
 const updateMovie = async(req,res=response) =>{
     try {
-        const movies= await Movie.find();
-        const movie=await Movie.updateOne({
-            ...req.body},{where: {id:req.params.id}})
+        const movie=await Movie.updateOne(
+            {id:req.params.id}, { ...req.body}, {new: true})
         return res.status(200).json({
             ok:true,
-            data:[movies]
+            data:movie
         })
     }catch(e){
         return res.status(500).json({error: 'Error en el servidor'})
