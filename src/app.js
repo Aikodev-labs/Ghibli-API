@@ -12,7 +12,7 @@ class App {
 
     constructor(){
         this.app = express();
-        this.port = 8080;
+        this.port = process.env.PORT || '8080';
 
         
         this.middlewares();
