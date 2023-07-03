@@ -62,6 +62,13 @@ const getRandomMovie = async (req, res = response) => {
     try{
         const movies= await Movie.find();
 
+        if (movies.length==0){
+            return res.status(404).json({
+                ok:false,
+                message: 'No se encontraron peliculas'
+            })
+        }
+
         const indiceRandom=Math.floor(Math.random()*movies.length);
         
         const randomMovie= movies[indiceRandom];
@@ -74,9 +81,9 @@ const getRandomMovie = async (req, res = response) => {
     }
 
     catch{
-        return res.status(404).json({
+        return res.status(500).json({
             ok:false,
-            message: 'Pelicula no existe'
+            message: 'Error en el servidor'
         })
     }
 }
