@@ -59,7 +59,26 @@ const deleteMovie = async(req, res=response) =>{
 }
 
 const getRandomMovie = async (req, res = response) => {
-    
+    try{
+        const movies= await Movie.find();
+
+        const indiceRandom=Math.floor(Math.random()*movies.length);
+        
+        const randomMovie= movies[indiceRandom];
+
+        return res.status(200).json({
+            ok:true,
+            data: randomMovie 
+        })
+
+    }
+
+    catch{
+        return res.status(404).json({
+            ok:false,
+            message: 'Pelicula no existe'
+        })
+    }
 }
 
 module.exports = {
