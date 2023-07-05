@@ -1,49 +1,44 @@
-const express = require('express');  //Me traigo la libreria de express.
-const path=require('path');
-const cors=require('cors');
+const express = require('express');
+const path = require('path');
+const cors = require('cors');
+const morgan = require('morgan');
 
 class App {
+  app;
+  port;
+  apiPath = {
+    movies: '/api/v1/movies'
+  };
 
-    app;
-    port;
-    apiPath = {
-        movies: '/api/v1/movies'
-    };
+  constructor() {
+    this.app = express();
+    this.port = process.env.PORT || '8080';
 
-    constructor(){
-        this.app = express();
-        this.port = process.env.PORT || '8080';
+    this.middlewares();
+    this.routes();
+  }
 
-        
-        this.middlewares();
+  middlewares() {
+    this.app.use(cors());
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(express.static('public'));
 
-        
-        this.routes();
+    // Configuring morgan middleware for logging
+    this.app.use(morgan('dev'));
+  }
 
-    }
+  routes() {
+    this.app.use(this.apiPath.movies, require('./routes/movies.routes'));
+  }
 
-    middlewares(){
-        this.app.use(cors());
-        
-        this.app.use(express.json());
-
-        this.app.use(express.urlencoded({extended: true}));
-         
-        this.app.use(express.static('public'));
-    }
-
-    routes(){
-        this.app.use(this.apiPath.movies, require('./routes/movies.routes'));
-    }
-
-
-    listen(){
-        this.app.listen(this.port, ()=>{
-            console.log(`Servidor corriendo en el puerto ${this.port}`);
-        })
-    }
+  listen() {
+    this.app.listen(this.port, () => {
+      console.log(`Servidor corriendo en el puerto ${this.port}`);
+    });
+  }
 }
 
 module.exports = {
-    App
-}
+  App
+};
