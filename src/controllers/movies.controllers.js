@@ -15,6 +15,31 @@ const createMovie = async (req, res = response) => {
     }
 }
 
+const getMovieDetail =async (req, res=response) => {
+    try{
+        const movie= await Movie.findById(req.params.id);
+
+        if(!movie){
+            return res.status(404).json({
+                ok:false,
+                error:'La pelicula no existe'
+            })
+        }
+
+        return res.status(200).json({
+            ok:true,
+            data:movie
+        })
+    }
+    catch(error){
+        res.status(500).json({
+            error:'Error en el servidor'
+        })
+    }
+
+}
+
+
 const getAllMovies = async (req, res = response) => {
     try {
         const movies = await Movie.find();
@@ -89,5 +114,5 @@ const getRandomMovie = async (req, res = response) => {
 }
 
 module.exports = {
-    getAllMovies, getRandomMovie, createMovie, updateMovie, deleteMovie
+    getAllMovies, getRandomMovie, createMovie, updateMovie, deleteMovie, getMovieDetail
 }
