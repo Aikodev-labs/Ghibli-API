@@ -33,6 +33,7 @@ class App {
     }
 
     routes(){
+        this.app.use('/', express.static(path.join(__dirname,'public')));
         this.app.use(this.apiPath.movies, require('./routes/movies.routes'));
     }
 
