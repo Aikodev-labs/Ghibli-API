@@ -34,7 +34,7 @@ const locationSchema = new Schema({
 });
 
 const vehicleSchema = new Schema({
-    id: { type: ObjectId, required: true },
+    id: { type: ObjectId, required: true }, 
     name: {
         es: { type: String, required: true },
         jp: { type: String, required: true },
