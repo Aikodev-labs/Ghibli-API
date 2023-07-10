@@ -2,8 +2,12 @@ const moongoose = require('mongoose');
 
 const db = async () => {
 
+    const dbName = process.env.DB_NAME || 'test';
+
     try{
-        await moongoose.connect( process.env.DB_CNN );
+        await moongoose.connect( process.env.DB_CNN, {
+            dbName,
+        });
         console.log('DB online');
         
     }catch(error){
