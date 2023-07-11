@@ -79,7 +79,6 @@ Los ID son provistos por mongo. El enfoque de esta base de datos es no relaciona
             "image":"N/a"
         }
     ],
-    "url": "https://ghibliapi.vercel.app/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49",
     "movie_images": [
         "https://example.com/image1.jpg",
         "https://example.com/image2.jpg",

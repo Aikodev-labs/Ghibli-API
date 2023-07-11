@@ -26,7 +26,7 @@ router.post('/',[
     check('rt_score','La calificación de la pelicula es obligatorio').trim().notEmpty(),
     fieldValidator
 ], createMovie); //http://localhost:8080/api/v1/movies POST
-router.put('/:id/edit',updateMovie); //http://localhost:8080/api/v1/movies/:id/edit POST
+router.put('/:id/edit',updateMovie); //http://localhost:8080/api/v1/movies/:id/edit PUT
 router.delete('/delete/:id',deleteMovie); //http://localhost:8080/api/v1/movies/delete/:id DELETE
 
 
