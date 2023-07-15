@@ -3,6 +3,12 @@ const Movie = require('../models/movie.js');
 
 const createMovie = async (req, res = response) => {
     try {
+        const titleExist= await Movie.findOne({title:req.body.title});
+
+        if(titleExist) {
+            return res.status(400).json({ok:false, error:'La pelicula ya existe'})
+        }
+
         const movie = await Movie.create(req.body);
         return res.status(201).json({
             ok: true,
@@ -49,15 +55,15 @@ const getAllMovies = async (req, res = response) => {
         })
     } catch (error) {
         return res.status(500).json({
-            error: 'Internal server error'
+            error: 'Error en el servidor'
         })
     }
 }
 
 const updateMovie = async(req,res=response) =>{
     try {
-        const movie=await Movie.updateOne(
-            {id:req.params.id}, { ...req.body}, {new: true})
+        const movie=await Movie.findByIdAndUpdate(req.params.id, { ...req.body}, {new: true})
+        await movie.save();
         return res.status(200).json({
             ok:true,
             data:movie
